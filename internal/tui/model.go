@@ -22,37 +22,20 @@ const (
 var (
 	appStyle = lipgloss.NewStyle().Padding(1, 2)
 
-	titleStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("255")).
-			Background(lipgloss.Color("19")).
-			Padding(1, 2)
+	titleStyle = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.AdaptiveColor{Light: "130", Dark: "208"})
 
-	categoryStyle = lipgloss.NewStyle().
-			Bold(true).
-		//Foreground(lipgloss.Color("240")).
-		Foreground(lipgloss.Color("45")).
-		MarginTop(1)
+	categoryStyle = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.AdaptiveColor{Light: "39", Dark: "45"}).MarginTop(1)
 
 	// Normal item
-	normalTitleStyle = lipgloss.NewStyle().
-				Foreground(lipgloss.AdaptiveColor{Light: "16", Dark: "255"})
-	normalDescStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("240"))
+	normalTitleStyle = lipgloss.NewStyle().Foreground(lipgloss.AdaptiveColor{Light: "16", Dark: "255"})
+	normalDescStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color("240"))
 
 	// Selected item
-	selectedTitleStyle = lipgloss.NewStyle().
-				Bold(true).
-		//Foreground(lipgloss.Color("#EE6FF8"))
-		Foreground(lipgloss.Color("171"))
-	selectedDescStyle = lipgloss.NewStyle().
-		//Foreground(lipgloss.Color("#AD58B4"))
-		Foreground(lipgloss.Color("177"))
+	selectedTitleStyle = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color("126"))
+	selectedDescStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color("126"))
 
 	// Done item
-	doneTitleStyle = lipgloss.NewStyle().
-		//Foreground(lipgloss.Color("#04B575"))
-		//Foreground(lipgloss.Color("34"))
-		Foreground(lipgloss.Color("244"))
+	doneTitleStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("244"))
 
 	dimStyle   = lipgloss.NewStyle().Foreground(lipgloss.Color("240"))
 	labelStyle = lipgloss.NewStyle().Width(30)
@@ -60,8 +43,8 @@ var (
 
 var inputLabels = [3]string{
 	"Category",
-	"What is this about?",
-	"What were you doing with it?",
+	"What are you doing?",
+	"Any additional notes?",
 }
 
 type Model struct {
@@ -81,11 +64,9 @@ func New() (Model, error) {
 		return Model{}, err
 	}
 
-	placeholders := [3]string{"e.g. Work", "e.g. Project Refactor", "e.g. Splitting the auth module into packages"}
 	var inputs [3]textinput.Model
 	for i := range inputs {
 		t := textinput.New()
-		t.Placeholder = placeholders[i]
 		t.CharLimit = 200
 		t.Width = 50
 		inputs[i] = t
