@@ -1,3 +1,4 @@
 .idea
-out/
 extra/
+# Added by goreleaser init:
+dist/
